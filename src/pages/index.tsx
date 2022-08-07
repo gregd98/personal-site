@@ -1,9 +1,9 @@
 import React from 'react';
 import type { NextPage } from 'next';
-import HomeView from 'views/Home/Home';
+import UnderConstruction from 'views/UnderConstruction/UnderConstruction';
 
 const Home: NextPage = () => (
-	<HomeView />
+	<UnderConstruction />
 );
 
 export default Home;
