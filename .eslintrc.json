@@ -79,6 +79,7 @@
     "react/jsx-indent-props": [2, "tab"],
     "react/jsx-props-no-spreading": [1, {"custom": "ignore"}],
     "react/prop-types": 1,
+    "react/require-default-props": 0,
     "react/function-component-definition": [0, {
       "namedComponenet": "function-expression"
     }],
