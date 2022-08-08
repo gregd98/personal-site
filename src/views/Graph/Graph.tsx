@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useRef, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
+import _ from 'lodash';
 
 const RADIUS = 3;
 const THRESHOLD = 200;
@@ -126,15 +127,17 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 			mousePos = { x: touch.clientX, y: touch.clientY };
 		};
 
+		const handleResizeDebounced = _.debounce(handleResize, 500);
+
 		window.addEventListener('mousemove', handleMouse);
-		window.addEventListener('resize', handleResize);
+		window.addEventListener('resize', handleResizeDebounced);
 		window.addEventListener('touchmove', handleTouch);
 
 		handleResize();
 
 		return () => {
 			window.removeEventListener('mousemove', handleMouse);
-			window.removeEventListener('resize', handleResize);
+			window.removeEventListener('resize', handleResizeDebounced);
 			window.removeEventListener('touchmove', handleTouch);
 		};
 	}, []);
