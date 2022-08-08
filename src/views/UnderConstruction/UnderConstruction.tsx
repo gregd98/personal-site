@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import Graph from 'views/Graph/Graph';
 
@@ -11,14 +11,15 @@ const sx = {
 		justifyContent: 'center',
 		alignItems: 'center',
 		px: '16px',
+		transition: 'all .3s',
 	},
 	textContainer: {
 		position: 'relative',
 		py: '12px',
 		px: '16px',
 		borderRadius: '10px',
-		backgroundColor: 'black',
-		cursor: 'default',
+		cursor: 'pointer',
+		transition: 'all .3s',
 	},
 	text: {
 		fontFamily: 'poppins',
@@ -26,7 +27,7 @@ const sx = {
 		fontSize: '24px',
 		textAlign: 'center',
 		transition: 'font-size .3s',
-		color: 'white',
+		userSelect: 'none',
 		[BP1]: {
 			fontSize: '18px',
 		},
@@ -39,13 +40,19 @@ const sx = {
 	},
 };
 
-const UnderConstruction = () => (
-	<Box sx={sx.root}>
-		<Graph style={sx.graph} />
-		<Box sx={sx.textContainer}>
-			<Typography sx={sx.text}>This site is under construction</Typography>
+const UnderConstruction = () => {
+	const [darkMode, setDarkMode] = useState(false);
+	const handleTextClick = () => {
+		setDarkMode((state) => !state);
+	};
+	return (
+		<Box sx={{ ...sx.root, backgroundColor: darkMode ? 'black' : 'white' }}>
+			<Graph style={sx.graph} color={darkMode ? '#FFFFFF' : '#000000'} />
+			<Box sx={{ ...sx.textContainer, backgroundColor: !darkMode ? 'black' : 'white' }} onClick={handleTextClick}>
+				<Typography sx={{ ...sx.text, color: darkMode ? 'black' : 'white' }}>This site is under construction</Typography>
+			</Box>
 		</Box>
-	</Box>
-);
+	);
+};
 
 export default UnderConstruction;
