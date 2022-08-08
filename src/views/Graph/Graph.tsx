@@ -3,11 +3,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import _ from 'lodash';
 
-const RADIUS = 4;
-const THRESHOLD = 300;
-const DENS = 130;
+const RADIUS = 3;
+const THRESHOLD = 200;
+const DENS = 65;
 const MIN_DENS = 10;
-const DEFAULT_LINE_WIDTH = 2;
 const MIN_LINE_WIDTH = 0.5;
 const MAX_LINE_WIDTH = 5;
 
@@ -112,8 +111,7 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 
 	useEffect(() => {
 		const handleMouse = (e: MouseEvent) => {
-			const dpi = window.devicePixelRatio;
-			mousePos = { x: e.pageX * dpi, y: e.pageY * dpi };
+			mousePos = { x: e.pageX, y: e.pageY };
 		};
 
 		const handleResize = () => {
@@ -126,8 +124,7 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 
 		const handleTouch = (e: TouchEvent) => {
 			const touch = e.touches[0];
-			const dpi = window.devicePixelRatio;
-			mousePos = { x: touch.clientX * dpi, y: touch.clientY * dpi };
+			mousePos = { x: touch.clientX, y: touch.clientY };
 		};
 
 		const handleResizeDebounced = _.debounce(handleResize, 500);
@@ -188,8 +185,6 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 					ctx.moveTo(nodes[i].x, nodes[i].y);
 					if (dynamicLineWidth) {
 						ctx.lineWidth = getLineWidthByDistance(distances[i * count + j]);
-					} else {
-						ctx.lineWidth = DEFAULT_LINE_WIDTH;
 					}
 					ctx.lineTo(nodes[j].x, nodes[j].y);
 					ctx.stroke();
@@ -202,8 +197,6 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 					ctx.moveTo(nodes[i].x, nodes[i].y);
 					if (dynamicLineWidth) {
 						ctx.lineWidth = getLineWidthByDistance(mouseDist);
-					} else {
-						ctx.lineWidth = DEFAULT_LINE_WIDTH;
 					}
 					ctx.lineTo(mousePos.x, mousePos.y);
 					ctx.stroke();
@@ -219,12 +212,11 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 		const context: any = canvas.getContext('2d');
 		let frameCount = 0;
 		let animationFrameId: number;
-		const dpi = window.devicePixelRatio;
-
-		const styleHeight = +getComputedStyle(canvas).getPropertyValue('height').slice(0, -2);
-		const styleWidth = +getComputedStyle(canvas).getPropertyValue('width').slice(0, -2);
-		canvas.setAttribute('height', styleHeight * dpi);
-		canvas.setAttribute('width', styleWidth * dpi);
+		// const dpi = window.devicePixelRatio;
+		// const style_height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+		// const style_width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+		// canvas.setAttribute('height', style_height * dpi);
+		// canvas.setAttribute('width', style_width * dpi);
 
 		for (let i = 0; i < count; i += 1) {
 			nodes.push(createNode(context.canvas.width, context.canvas.height, false));
