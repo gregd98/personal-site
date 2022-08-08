@@ -3,11 +3,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import _ from 'lodash';
 
-const RADIUS = 4;
-const THRESHOLD = 300;
-const DENS = 130;
-const MIN_DENS = 10;
-const DEFAULT_LINE_WIDTH = 2;
 const MIN_LINE_WIDTH = 0.5;
 const MAX_LINE_WIDTH = 5;
 
@@ -36,7 +31,7 @@ interface INode {
 
 const getDir = (angle: number): number => (angle * Math.PI) / 180;
 
-const createNode = (width: number, height: number, fromSide = true): INode => {
+const createNode = (width: number, height: number, radius: number, fromSide = true): INode => {
 	const a = Math.random() * 180;
 	const speed = Math.random() / 2 + 0.2;
 	let dir,
@@ -45,23 +40,23 @@ const createNode = (width: number, height: number, fromSide = true): INode => {
 	if (fromSide) {
 		switch (Math.floor(Math.random() * 4)) {
 			case 0:
-				x = -RADIUS;
+				x = -radius;
 				y = Math.random() * height;
 				dir = getDir(a >= 90 ? a + 180 : getDir(a));
 				break;
 			case 1:
-				x = width + RADIUS;
+				x = width + radius;
 				y = Math.random() * height;
 				dir = getDir(a + 90);
 				break;
 			case 2:
 				x = Math.random() * width;
-				y = -RADIUS;
+				y = -radius;
 				dir = getDir(a);
 				break;
 			default:
 				x = Math.random() * width;
-				y = height + RADIUS;
+				y = height + radius;
 				dir = getDir(a + 180);
 		}
 	} else {
@@ -86,13 +81,14 @@ const calculateDistances = (nodes: INode[], count: number): number[] => {
 	return res;
 };
 
-const getLineWidthByDistance = (dist: number): number => ((THRESHOLD - dist) / THRESHOLD) * (MAX_LINE_WIDTH - MIN_LINE_WIDTH) + MIN_LINE_WIDTH;
+const getLineWidthByDistance = (dist: number, threshold: number): number => ((threshold - dist) / threshold) * (MAX_LINE_WIDTH - MIN_LINE_WIDTH) + MIN_LINE_WIDTH;
 
-const getCount = (rootRef: any) => {
+const getCount = (rootRef: any, density: number, minimumDensity: number) => {
 	if (rootRef.current) {
-		return Math.max(Math.floor((rootRef.current.clientWidth * rootRef.current.clientHeight * DENS) / 2073600), MIN_DENS);
+		const dpi = window.devicePixelRatio;
+		return Math.max(Math.floor((rootRef.current.clientWidth * rootRef.current.clientHeight * density) / (2073600 / dpi)), minimumDensity);
 	}
-	return MIN_DENS;
+	return minimumDensity;
 };
 
 let mousePos: IMousePos | null = null;
@@ -100,10 +96,24 @@ let mousePos: IMousePos | null = null;
 interface Props {
 	color?: string
 	style?: object
+	radius?: number
+	lineWidth?: number
+	density?: number
+	minimumDensity?: number
+	threshold?: number
 	dynamicLineWidth?: boolean
 }
 
-const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Props) => {
+const Graph = ({
+	color = '#000000',
+	radius = 2,
+	lineWidth = 0.5,
+	density = 90,
+	minimumDensity = 10,
+	threshold = 160,
+	style = {},
+	dynamicLineWidth = false,
+}: Props) => {
 	const rootRef = useRef<any>(null);
 	const canvasRef = useRef(null);
 	const [count, setCount] = useState(0);
@@ -120,7 +130,7 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 			if (rootRef.current) {
 				setWidth(rootRef.current.clientWidth);
 				setHeight(rootRef.current.clientHeight);
-				setCount(getCount(rootRef));
+				setCount(getCount(rootRef, density, minimumDensity));
 			}
 		};
 
@@ -143,12 +153,14 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 			window.removeEventListener('resize', handleResizeDebounced);
 			window.removeEventListener('touchmove', handleTouch);
 		};
-	}, []);
+	}, [density, minimumDensity]);
 
 	const nodes: INode[] = [];
 	let distances = [];
 
 	const draw = (ctx: any) => {
+		const dpi = window.devicePixelRatio;
+		const newRadius = radius * dpi;
 		for (let i = 0; i < count; i += 1) {
 			const node = nodes[i];
 			const newNode = {
@@ -156,8 +168,8 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 				x: node.x + Math.cos(node.dir) * node.speed,
 				y: node.y + Math.sin(node.dir) * node.speed,
 			};
-			if (newNode.x < -RADIUS || newNode.y < -RADIUS || newNode.x >= ctx.canvas.width + RADIUS || newNode.y >= ctx.canvas.height + RADIUS) {
-				nodes[i] = createNode(ctx.canvas.width, ctx.canvas.height);
+			if (newNode.x < -newRadius || newNode.y < -newRadius || newNode.x >= ctx.canvas.width + newRadius || newNode.y >= ctx.canvas.height + newRadius) {
+				nodes[i] = createNode(ctx.canvas.width, ctx.canvas.height, newRadius);
 			} else {
 				nodes[i] = newNode;
 			}
@@ -171,25 +183,25 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 
 		for (let i = 0; i < count; i += 1) {
 			ctx.beginPath();
-			ctx.arc(nodes[i].x, nodes[i].y, RADIUS, 0, Math.PI * 2, true);
+			ctx.arc(nodes[i].x, nodes[i].y, newRadius, 0, Math.PI * 2, true);
 			ctx.fill();
 		}
 
 		if (mousePos) {
 			ctx.beginPath();
-			ctx.arc(mousePos.x, mousePos.y, RADIUS, 0, Math.PI * 2, true);
+			ctx.arc(mousePos.x, mousePos.y, newRadius, 0, Math.PI * 2, true);
 			ctx.fill();
 		}
 
 		for (let i = 0; i < count; i += 1) {
 			for (let j = 0; j < count; j += 1) {
-				if (i !== j && distances[i * count + j] <= THRESHOLD) {
+				if (i !== j && distances[i * count + j] <= threshold * dpi) {
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);
 					if (dynamicLineWidth) {
-						ctx.lineWidth = getLineWidthByDistance(distances[i * count + j]);
+						ctx.lineWidth = getLineWidthByDistance(distances[i * count + j], threshold * dpi);
 					} else {
-						ctx.lineWidth = DEFAULT_LINE_WIDTH;
+						ctx.lineWidth = lineWidth * dpi;
 					}
 					ctx.lineTo(nodes[j].x, nodes[j].y);
 					ctx.stroke();
@@ -197,13 +209,13 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 			}
 			if (mousePos) {
 				const mouseDist = calculateDistance(nodes[i].x, mousePos.x, nodes[i].y, mousePos.y);
-				if (mouseDist <= THRESHOLD) {
+				if (mouseDist <= threshold * dpi) {
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);
 					if (dynamicLineWidth) {
-						ctx.lineWidth = getLineWidthByDistance(mouseDist);
+						ctx.lineWidth = getLineWidthByDistance(mouseDist, threshold * dpi);
 					} else {
-						ctx.lineWidth = DEFAULT_LINE_WIDTH;
+						ctx.lineWidth = lineWidth * dpi;
 					}
 					ctx.lineTo(mousePos.x, mousePos.y);
 					ctx.stroke();
@@ -220,6 +232,7 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 		let frameCount = 0;
 		let animationFrameId: number;
 		const dpi = window.devicePixelRatio;
+		const newRadius = radius * dpi;
 
 		const styleHeight = +getComputedStyle(canvas).getPropertyValue('height').slice(0, -2);
 		const styleWidth = +getComputedStyle(canvas).getPropertyValue('width').slice(0, -2);
@@ -227,7 +240,7 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 		canvas.setAttribute('width', styleWidth * dpi);
 
 		for (let i = 0; i < count; i += 1) {
-			nodes.push(createNode(context.canvas.width, context.canvas.height, false));
+			nodes.push(createNode(context.canvas.width, context.canvas.height, newRadius, false));
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -243,7 +256,7 @@ const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Prop
 		return () => {
 			window.cancelAnimationFrame(animationFrameId);
 		};
-	}, [width, height, count, canvasRef]);
+	}, [width, height, count, canvasRef, radius, lineWidth]);
 
 	return (
 		<Box ref={rootRef} sx={{ ...sx.root, ...style }}>
