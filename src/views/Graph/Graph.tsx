@@ -6,8 +6,8 @@ const RADIUS = 3;
 const THRESHOLD = 200;
 const DENS = 65;
 const MIN_DENS = 10;
-// const MIN_LINE_WIDTH = 0.5;
-// const MAX_LINE_WIDTH = 5;
+const MIN_LINE_WIDTH = 0.5;
+const MAX_LINE_WIDTH = 5;
 
 const sx = {
 	root: {
@@ -84,14 +84,7 @@ const calculateDistances = (nodes: INode[], count: number): number[] => {
 	return res;
 };
 
-// const getLineWidthByDistance = (dist: number): number => ((THRESHOLD - dist) / THRESHOLD) * (MAX_LINE_WIDTH - MIN_LINE_WIDTH) + MIN_LINE_WIDTH;
-
-let mousePos: IMousePos | null = null;
-
-interface Props {
-	color?: string
-	style?: object
-}
+const getLineWidthByDistance = (dist: number): number => ((THRESHOLD - dist) / THRESHOLD) * (MAX_LINE_WIDTH - MIN_LINE_WIDTH) + MIN_LINE_WIDTH;
 
 const getCount = (rootRef: any) => {
 	if (rootRef.current) {
@@ -100,7 +93,15 @@ const getCount = (rootRef: any) => {
 	return MIN_DENS;
 };
 
-const Graph = ({ color = '#000000', style = {} }: Props) => {
+let mousePos: IMousePos | null = null;
+
+interface Props {
+	color?: string
+	style?: object
+	dynamicLineWidth?: boolean
+}
+
+const Graph = ({ color = '#000000', style = {}, dynamicLineWidth = false }: Props) => {
 	const rootRef = useRef<any>(null);
 	const canvasRef = useRef(null);
 	const [count, setCount] = useState(0);
@@ -179,7 +180,9 @@ const Graph = ({ color = '#000000', style = {} }: Props) => {
 				if (i !== j && distances[i * count + j] <= THRESHOLD) {
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);
-					// ctx.lineWidth = getLineWidthByDistance(distances[i * count + j]);
+					if (dynamicLineWidth) {
+						ctx.lineWidth = getLineWidthByDistance(distances[i * count + j]);
+					}
 					ctx.lineTo(nodes[j].x, nodes[j].y);
 					ctx.stroke();
 				}
@@ -189,7 +192,9 @@ const Graph = ({ color = '#000000', style = {} }: Props) => {
 				if (mouseDist <= THRESHOLD) {
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);
-					// ctx.lineWidth = getLineWidthByDistance(mouseDist);
+					if (dynamicLineWidth) {
+						ctx.lineWidth = getLineWidthByDistance(mouseDist);
+					}
 					ctx.lineTo(mousePos.x, mousePos.y);
 					ctx.stroke();
 				}
