@@ -81,7 +81,12 @@ const calculateDistances = (nodes: INode[], count: number): number[] => {
 	return res;
 };
 
-const getLineWidthByDistance = (dist: number, threshold: number): number => ((threshold - dist) / threshold) * (MAX_LINE_WIDTH - MIN_LINE_WIDTH) + MIN_LINE_WIDTH;
+const getLineWidthByDistance = (dist: number, threshold: number): number => {
+	const dpi = window.devicePixelRatio;
+	const min = MIN_LINE_WIDTH * dpi;
+	const max = MAX_LINE_WIDTH * dpi;
+	return ((threshold - dist) / threshold) * (max - min) + min;
+};
 
 const getCount = (rootRef: any, density: number, minimumDensity: number) => {
 	if (rootRef.current) {
@@ -108,7 +113,7 @@ const Graph = ({
 	color = '#000000',
 	radius = 2,
 	lineWidth = 0.5,
-	density = 90,
+	density = 80,
 	minimumDensity = 10,
 	threshold = 160,
 	style = {},
@@ -160,7 +165,7 @@ const Graph = ({
 
 	const draw = (ctx: any) => {
 		const dpi = window.devicePixelRatio;
-		const newRadius = radius * dpi;
+		const currentRadius = radius * dpi;
 		for (let i = 0; i < count; i += 1) {
 			const node = nodes[i];
 			const newNode = {
@@ -168,8 +173,8 @@ const Graph = ({
 				x: node.x + Math.cos(node.dir) * node.speed,
 				y: node.y + Math.sin(node.dir) * node.speed,
 			};
-			if (newNode.x < -newRadius || newNode.y < -newRadius || newNode.x >= ctx.canvas.width + newRadius || newNode.y >= ctx.canvas.height + newRadius) {
-				nodes[i] = createNode(ctx.canvas.width, ctx.canvas.height, newRadius);
+			if (newNode.x < -currentRadius || newNode.y < -currentRadius || newNode.x >= ctx.canvas.width + currentRadius || newNode.y >= ctx.canvas.height + currentRadius) {
+				nodes[i] = createNode(ctx.canvas.width, ctx.canvas.height, currentRadius);
 			} else {
 				nodes[i] = newNode;
 			}
@@ -183,13 +188,13 @@ const Graph = ({
 
 		for (let i = 0; i < count; i += 1) {
 			ctx.beginPath();
-			ctx.arc(nodes[i].x, nodes[i].y, newRadius, 0, Math.PI * 2, true);
+			ctx.arc(nodes[i].x, nodes[i].y, currentRadius, 0, Math.PI * 2, true);
 			ctx.fill();
 		}
 
 		if (mousePos) {
 			ctx.beginPath();
-			ctx.arc(mousePos.x, mousePos.y, newRadius, 0, Math.PI * 2, true);
+			ctx.arc(mousePos.x, mousePos.y, currentRadius, 0, Math.PI * 2, true);
 			ctx.fill();
 		}
 
@@ -256,7 +261,7 @@ const Graph = ({
 		return () => {
 			window.cancelAnimationFrame(animationFrameId);
 		};
-	}, [width, height, count, canvasRef, radius, lineWidth]);
+	}, [width, height, count, canvasRef, radius, lineWidth, color]);
 
 	return (
 		<Box ref={rootRef} sx={{ ...sx.root, ...style }}>
