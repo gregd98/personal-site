@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import React, { useRef, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
-import _ from 'lodash';
+import useDebouncedResizeObserver from 'hooks/useDebouncedResizeObserver';
 
 const MIN_LINE_WIDTH = 0.5;
 const MAX_LINE_WIDTH = 5;
@@ -117,22 +117,33 @@ const Graph = ({
 	style = {},
 	dynamicLineWidth = false,
 }: Props) => {
-	const rootRef = useRef<any>(null);
+	const rootRef = useRef<HTMLDivElement>();
 	const canvasRef = useRef(null);
-	const [count, setCount] = useState(0);
-	const [width, setWidth] = useState(0);
-	const [height, setHeight] = useState(0);
+	const [count, setCount] = useState<number>(0);
+	const [width, setWidth] = useState<number>(0);
+	const [height, setHeight] = useState<number>(0);
+	const size = useDebouncedResizeObserver(rootRef, 500);
 
 	let cursorPos: ICursorPos | null = null;
 
-	const calculateCursorPos = (x: number, y: number): ICursorPos => {
-		const { top, left } = rootRef.current.getBoundingClientRect();
-		const dpi = window.devicePixelRatio;
-		return { x: (x - left) * dpi, y: (y - top) * dpi };
+	useEffect(() => {
+		if (size?.width && size?.height) {
+			setWidth(size.width);
+			setHeight(size.height);
+			setCount(getCount(rootRef, density, minimumDensity));
+		}
+	}, [size, density, minimumDensity]);
+
+	const setCursorPos = (x: number, y: number) => {
+		if (rootRef.current) {
+			const { top, left } = rootRef.current.getBoundingClientRect();
+			const dpi = window.devicePixelRatio;
+			cursorPos =  { x: (x - left) * dpi, y: (y - top) * dpi };
+		}
 	};
 
 	const handleMouseMove = (e: MouseEvent) => {
-		cursorPos = calculateCursorPos(e.pageX, e.pageY);
+		setCursorPos(e.pageX, e.pageY);
 	};
 
 	const handleMouseLeave = () => {
@@ -140,29 +151,9 @@ const Graph = ({
 	};
 
 	const handleTouchMove = (e: TouchEvent) => {
-		const [touch] = e.touches;
-		cursorPos = calculateCursorPos(touch.clientX, touch.clientY);
+		const [{ clientX, clientY }] = e.touches;
+		setCursorPos(clientX, clientY);
 	};
-
-	useEffect(() => {
-		const handleResize = () => {
-			if (rootRef.current) {
-				setWidth(rootRef.current.clientWidth);
-				setHeight(rootRef.current.clientHeight);
-				setCount(getCount(rootRef, density, minimumDensity));
-			}
-		};
-
-		const handleResizeDebounced = _.debounce(handleResize, 500);
-
-		window.addEventListener('resize', handleResizeDebounced);
-
-		handleResize();
-
-		return () => {
-			window.removeEventListener('resize', handleResizeDebounced);
-		};
-	}, [density, minimumDensity]);
 
 	const nodes: INode[] = [];
 	let distances = [];
