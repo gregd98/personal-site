@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React, { useRef, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import useDebouncedResizeObserver from 'hooks/useDebouncedResizeObserver';
