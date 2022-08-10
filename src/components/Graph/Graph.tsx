@@ -17,7 +17,7 @@ const sx = {
 	},
 };
 
-interface IMousePos {
+interface ICursorPos {
 	x: number
 	y: number
 }
@@ -96,8 +96,6 @@ const getCount = (rootRef: any, density: number, minimumDensity: number) => {
 	return minimumDensity;
 };
 
-let mousePos: IMousePos | null = null;
-
 interface Props {
 	color?: string
 	style?: object
@@ -125,12 +123,28 @@ const Graph = ({
 	const [width, setWidth] = useState(0);
 	const [height, setHeight] = useState(0);
 
-	useEffect(() => {
-		const handleMouse = (e: MouseEvent) => {
-			const dpi = window.devicePixelRatio;
-			mousePos = { x: e.pageX * dpi, y: e.pageY * dpi };
-		};
+	let cursorPos: ICursorPos | null = null;
 
+	const calculateCursorPos = (x: number, y: number): ICursorPos => {
+		const { top, left } = rootRef.current.getBoundingClientRect();
+		const dpi = window.devicePixelRatio;
+		return { x: (x - left) * dpi, y: (y - top) * dpi };
+	};
+
+	const handleMouseMove = (e: MouseEvent) => {
+		cursorPos = calculateCursorPos(e.pageX, e.pageY);
+	};
+
+	const handleMouseLeave = () => {
+		cursorPos = null;
+	};
+
+	const handleTouchMove = (e: TouchEvent) => {
+		const [touch] = e.touches;
+		cursorPos = calculateCursorPos(touch.clientX, touch.clientY);
+	};
+
+	useEffect(() => {
 		const handleResize = () => {
 			if (rootRef.current) {
 				setWidth(rootRef.current.clientWidth);
@@ -139,24 +153,14 @@ const Graph = ({
 			}
 		};
 
-		const handleTouch = (e: TouchEvent) => {
-			const touch = e.touches[0];
-			const dpi = window.devicePixelRatio;
-			mousePos = { x: touch.clientX * dpi, y: touch.clientY * dpi };
-		};
-
 		const handleResizeDebounced = _.debounce(handleResize, 500);
 
-		window.addEventListener('mousemove', handleMouse);
 		window.addEventListener('resize', handleResizeDebounced);
-		window.addEventListener('touchmove', handleTouch);
 
 		handleResize();
 
 		return () => {
-			window.removeEventListener('mousemove', handleMouse);
 			window.removeEventListener('resize', handleResizeDebounced);
-			window.removeEventListener('touchmove', handleTouch);
 		};
 	}, [density, minimumDensity]);
 
@@ -192,9 +196,9 @@ const Graph = ({
 			ctx.fill();
 		}
 
-		if (mousePos) {
+		if (cursorPos) {
 			ctx.beginPath();
-			ctx.arc(mousePos.x, mousePos.y, currentRadius, 0, Math.PI * 2, true);
+			ctx.arc(cursorPos.x, cursorPos.y, currentRadius, 0, Math.PI * 2, true);
 			ctx.fill();
 		}
 
@@ -212,8 +216,8 @@ const Graph = ({
 					ctx.stroke();
 				}
 			}
-			if (mousePos) {
-				const mouseDist = calculateDistance(nodes[i].x, mousePos.x, nodes[i].y, mousePos.y);
+			if (cursorPos) {
+				const mouseDist = calculateDistance(nodes[i].x, cursorPos.x, nodes[i].y, cursorPos.y);
 				if (mouseDist <= threshold * dpi) {
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -222,7 +226,7 @@ const Graph = ({
 					} else {
 						ctx.lineWidth = lineWidth * dpi;
 					}
-					ctx.lineTo(mousePos.x, mousePos.y);
+					ctx.lineTo(cursorPos.x, cursorPos.y);
 					ctx.stroke();
 				}
 			}
@@ -264,7 +268,14 @@ const Graph = ({
 	}, [width, height, count, canvasRef, radius, lineWidth, color]);
 
 	return (
-		<Box ref={rootRef} sx={{ ...sx.root, ...style }}>
+		<Box
+			ref={rootRef}
+			sx={{ ...sx.root, ...style }}
+			onMouseMove={(e) => handleMouseMove(e.nativeEvent)}
+			onMouseLeave={handleMouseLeave}
+			onTouchMove={(e) => handleTouchMove(e.nativeEvent)}
+			onTouchEnd={handleMouseLeave}
+		>
 			<canvas ref={canvasRef} />
 		</Box>
 	);
