@@ -109,7 +109,7 @@
       "error",
       {
         "props": true,
-        "ignorePropertyModificationsFor": ["draft", "req"]
+        "ignorePropertyModificationsFor": ["draft", "req", "ctx"]
       }
     ],
     "react-hooks/rules-of-hooks": "error",
