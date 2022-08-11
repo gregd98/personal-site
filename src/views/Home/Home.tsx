@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import TopSection from 'views/Home/components/TopSection';
 
 const Home = () => (
 	<Box>
-		<Typography>Personal Site</Typography>
+		<TopSection />
 	</Box>
 );
 
