@@ -1,4 +1,4 @@
-import { generateFontFaces } from './fonts';
+import { generateFontFaces } from 'utils/utils';
 
 const components = {
 	MuiCssBaseline: {
