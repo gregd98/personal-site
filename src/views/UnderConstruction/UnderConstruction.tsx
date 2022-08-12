@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
-import { Graph } from 'components/Graph';
+import { Graph } from 'components';
 
 const BP1 = '@media (max-width: 260px)';
 

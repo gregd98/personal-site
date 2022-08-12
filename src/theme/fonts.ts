@@ -1,6 +1,6 @@
 interface IFontItem {
  name: string
- weights: number[]
+ weights: number[] | string
  format: string
  extension: string
 }
@@ -8,26 +8,26 @@ interface IFontItem {
 export const fonts: IFontItem[] = [
 	{
 		name: 'poppins',
-		weights: [300, 400, 500, 700, 900],
+		weights: '100-900',
+		format: 'truetype',
+		extension: '.ttf',
+	},
+	{
+		name: 'lato',
+		weights: [100, 300, 400, 700, 900],
+		format: 'truetype',
+		extension: '.ttf',
+	},
+	{
+		name: 'raleway',
+		weights: '100-900',
+		format: 'truetype',
+		extension: '.ttf',
+	},
+	{
+		name: 'quicksand',
+		weights: '300-700',
 		format: 'truetype',
 		extension: '.ttf',
 	},
 ];
-
-export const generateFontFaces = (): string => {
-	const r: string[] = [];
-	fonts.forEach(({
-		name, weights, format, extension,
-	}) => {
-		weights.forEach((weight) => {
-			r.push(`
-			@font-face {
-				font-family: "${name}";
-				font-weight: ${weight};
-				src: local("${name}"), url(/fonts/${name}/${weight}${extension}) format("${format}");
-			}
-			`);
-		});
-	});
-	return r.join('\n');
-};
