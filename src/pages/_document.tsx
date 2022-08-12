@@ -4,6 +4,7 @@ import Document, {
 } from 'next/document';
 import { ServerStyleSheets } from '@mui/styles';
 
+/* eslint-disable @next/next/no-title-in-document-head */
 export default class MyDocument extends Document {
 	render() {
 		return (
