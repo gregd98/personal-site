@@ -1,7 +1,7 @@
 import React, {
-	useRef, useEffect, useState, useMemo,
+	useRef, useEffect, useState, useMemo, FC,
 } from 'react';
-import { Box } from '@mui/material';
+import { Box, BoxProps } from '@mui/material';
 import useDebouncedResizeObserver from 'hooks/useDebouncedResizeObserver';
 
 const MIN_LINE_WIDTH = 0.5;
@@ -97,7 +97,9 @@ const getCount = (rootRef: any, density: number, minimumDensity: number) => {
 	return minimumDensity;
 };
 
-interface Props {
+// let outerCursorPos: ICursorPos | null = null;
+
+const Graph: FC<{
 	color?: string
 	style?: object
 	radius?: number
@@ -106,11 +108,9 @@ interface Props {
 	minimumDensity?: number
 	threshold?: number
 	dynamicLineWidth?: boolean
-}
-
-// let outerCursorPos: ICursorPos | null = null;
-
-const Graph = ({
+	mouseInteract?: boolean
+	touchInteract?: boolean
+}> = ({
 	color = '#000000',
 	radius = 2,
 	lineWidth = 0.5,
@@ -119,7 +119,9 @@ const Graph = ({
 	threshold = 160,
 	style = {},
 	dynamicLineWidth = false,
-}: Props) => {
+	mouseInteract = true,
+	touchInteract = false,
+}) => {
 	const rootRef = useRef<HTMLDivElement>();
 	const canvasRef = useRef(null);
 	const [count, setCount] = useState<number>(0);
@@ -266,14 +268,22 @@ const Graph = ({
 		};
 	}, [width, height, count, canvasRef, radius, lineWidth, color]);
 
+	const mouseHandlers: BoxProps = {
+		onMouseMove: (e) => handleMouseMove(e.nativeEvent),
+		onMouseLeave: handleMouseLeave,
+	};
+
+	const touchHandlers: BoxProps = {
+		onTouchMove: (e) => handleTouchMove(e.nativeEvent),
+		onTouchEnd: handleMouseLeave,
+	};
+
 	return (
 		<Box
 			ref={rootRef}
 			sx={{ ...sx.root, ...style }}
-			onMouseMove={(e) => handleMouseMove(e.nativeEvent)}
-			onMouseLeave={handleMouseLeave}
-			onTouchMove={(e) => handleTouchMove(e.nativeEvent)}
-			onTouchEnd={handleMouseLeave}
+			{...(mouseInteract && mouseHandlers)}
+			{...(touchInteract && touchHandlers)}
 		>
 			<canvas ref={canvasRef} />
 		</Box>
