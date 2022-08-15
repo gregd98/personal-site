@@ -1,4 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {
+	useRef, useEffect, useState, useMemo,
+} from 'react';
 import { Box } from '@mui/material';
 import useDebouncedResizeObserver from 'hooks/useDebouncedResizeObserver';
 
@@ -106,6 +108,8 @@ interface Props {
 	dynamicLineWidth?: boolean
 }
 
+// let outerCursorPos: ICursorPos | null = null;
+
 const Graph = ({
 	color = '#000000',
 	radius = 2,
@@ -123,7 +127,8 @@ const Graph = ({
 	const [height, setHeight] = useState<number>(0);
 	const size = useDebouncedResizeObserver(rootRef, 500);
 
-	let cursorPos: ICursorPos | null = null;
+	const cp: ICursorPos | null = null;
+	let cursorPos = useMemo<ICursorPos|null>(() => cp, [cp]);
 
 	useEffect(() => {
 		if (size?.width && size?.height) {
@@ -135,9 +140,13 @@ const Graph = ({
 
 	const setCursorPos = (x: number, y: number) => {
 		if (rootRef.current) {
-			const { top, left } = rootRef.current.getBoundingClientRect();
+			const rect = rootRef.current.getBoundingClientRect();
+			const { top, left } = rect;
 			const dpi = window.devicePixelRatio;
-			cursorPos =  { x: (x - left) * dpi, y: (y - top) * dpi };
+			cursorPos = { x: (x - left - window.scrollX) * dpi, y: (y - top - window.scrollY) * dpi };
+			// cursorPos = pos;
+			// outerCursorPos = pos;
+			// cursorPos = pos;
 		}
 	};
 

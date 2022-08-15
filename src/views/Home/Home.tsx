@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
-import { Header, TopSection } from 'views/Home/components';
+import { Header, TopSection, HeaderDivider } from './components';
 
 const sx = {
 	root: {
@@ -26,9 +26,7 @@ const Home: FC = () => (
 	<Box sx={sx.root}>
 		<Header style={{ zIndex: 2 }} />
 		<TopSection style={{ zIndex: 1 }} />
-		<Box sx={sx.dividerContainer}>
-			<Box sx={sx.divider} />
-		</Box>
+		<HeaderDivider style={{ mt: '80px' }} />
 		<Box sx={{ height: '1500px' }} />
 	</Box>
 );

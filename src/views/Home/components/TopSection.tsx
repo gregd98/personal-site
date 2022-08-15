@@ -16,7 +16,6 @@ const sx = {
 		width: '100%',
 		height: '100%',
 		zIndex: 0,
-		// paddingTop: '60px',
 		// backgroundColor: '#FF000020',
 	},
 	contentContainer: {
@@ -107,7 +106,7 @@ const sx = {
 	rightContainer: {
 		width: '500px',
 		height: 'calc(100%)',
-		mt: '40px',
+		// mt: '40px',
 		// backgroundColor: '#00000030',
 		border: '1px solid #00000030',
 		borderRadius: '40px',
