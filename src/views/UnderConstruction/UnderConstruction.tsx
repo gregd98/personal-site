@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Graph } from 'components';
 
@@ -40,8 +40,8 @@ const sx = {
 	},
 };
 
-const UnderConstruction = () => {
-	const [darkMode, setDarkMode] = useState(false);
+const UnderConstruction: FC = () => {
+	const [darkMode, setDarkMode] = useState<boolean>(false);
 	const handleTextClick = () => {
 		setDarkMode((state) => !state);
 	};

@@ -1,5 +1,6 @@
 import COLORS from 'theme/colors';
 
+// todo: types
 const palette = {
 	primary: {
 		main: COLORS.primary,

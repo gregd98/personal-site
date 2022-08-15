@@ -1,4 +1,4 @@
-const COLORS = {
+const COLORS: { [key: string]: string } = {
 	primary: '#6051BC',
 };
 

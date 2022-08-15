@@ -7,7 +7,7 @@ interface ISize {
 	height?: number
 }
 
-const useDebouncedResizeObserver =  (ref: RefObject<any>, wait: number, leading = false) => {
+const useDebouncedResizeObserver =  (ref: RefObject<any>, wait: number, leading = false): ISize => {
 	const [size, setSize] = useState<ISize>({});
 	const onResize = useMemo(() => _.debounce(setSize, wait, { leading }), [
 		wait, leading,

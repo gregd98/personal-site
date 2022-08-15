@@ -1,6 +1,7 @@
 import { generateFontFaces } from 'utils/utils';
+import { Components } from '@mui/material';
 
-const components = {
+const components: Components = {
 	MuiCssBaseline: {
 		styleOverrides: generateFontFaces(),
 	},
@@ -14,8 +15,6 @@ const components = {
 		defaultProps: {
 			variantMapping: {
 				body1: 'div',
-				heading1: 'div',
-				heading2: 'div',
 			},
 		},
 	},
