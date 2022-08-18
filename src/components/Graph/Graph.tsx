@@ -2,7 +2,7 @@ import React, {
 	useRef, useEffect, useState, useMemo, FC,
 } from 'react';
 import { Box, BoxProps } from '@mui/material';
-import useDebouncedResizeObserver from 'hooks/useDebouncedResizeObserver';
+import { useDebouncedResizeObserver } from 'hooks';
 
 const MIN_LINE_WIDTH = 0.5;
 const MAX_LINE_WIDTH = 5;

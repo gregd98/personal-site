@@ -1,4 +1,4 @@
-import { generateFontFaces } from 'utils/utils';
+import { generateFontFaces } from 'utils';
 import { Components } from '@mui/material';
 
 const components: Components = {

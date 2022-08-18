@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
-import { px } from 'utils/utils';
+import { px } from 'utils';
 
 const WIDTH = 300;
 

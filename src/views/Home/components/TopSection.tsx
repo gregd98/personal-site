@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Typography } from '@mui/material';
 import { Graph } from 'components';
-import { bp } from 'utils/utils';
+import { bp } from 'utils';
 
 const sx = {
 	root: {
