@@ -56,6 +56,7 @@ const sx = {
 		backgroundColor: '#FFFFFF40',
 		maxWidth: '290px',
 		borderRadius: '20px',
+		transition: 'all .3s',
 		[bp(860)]: {
 			fontSize: '48px',
 			lineHeight: '52px',
@@ -76,6 +77,7 @@ const sx = {
 		fontFamily: 'quicksand',
 		fontWeight: 300,
 		backgroundColor: '#FFFFFF40',
+		transition: 'all .3s',
 		[bp(860)]: {
 			fontSize: '52px',
 			lineHeight: '55px',
