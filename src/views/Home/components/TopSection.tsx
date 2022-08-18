@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Box, Typography } from '@mui/material';
+import { motion, AnimationProps } from 'framer-motion';
 import { Graph } from 'components';
 import { bp } from 'utils';
 
@@ -52,24 +53,9 @@ const sx = {
 		fontFamily: 'raleway',
 		color: 'black',
 		fontWeight: 300,
-		animationName: 'fade-in',
-		animationDuration: '1.3s',
-		animationDelay: '1.5s',
-		animationFillMode: 'forwards',
 		backgroundColor: '#FFFFFF40',
-		// backgroundColor: '#FF0000',
 		maxWidth: '290px',
 		borderRadius: '20px',
-		transition: 'all .3s',
-		opacity: 0,
-		'@keyframes fade-in': {
-			from: {
-				opacity: 0,
-			},
-			to: {
-				opacity: 1,
-			},
-		},
 		[bp(860)]: {
 			fontSize: '48px',
 			lineHeight: '52px',
@@ -89,14 +75,7 @@ const sx = {
 		color: 'black',
 		fontFamily: 'quicksand',
 		fontWeight: 300,
-		transition: 'all .3s',
 		backgroundColor: '#FFFFFF40',
-		// backgroundColor: 'red',
-		animationName: 'fade-in',
-		animationDuration: '1.3s',
-		animationDelay: '3s',
-		opacity: 0,
-		animationFillMode: 'forwards',
 		[bp(860)]: {
 			fontSize: '52px',
 			lineHeight: '55px',
@@ -120,6 +99,18 @@ const sx = {
 	},
 };
 
+const welcomeTextAnimation: AnimationProps = {
+	initial: { opacity: 0 },
+	animate: { opacity: 1 },
+	transition: { duration: 0.3, delay: 1.5 },
+};
+
+const nameTextAnimation: AnimationProps = {
+	initial: { opacity: 0 },
+	animate: { opacity: 1 },
+	transition: { duration: 0.3, delay: 2.5 },
+};
+
 const TopSection: FC<{
 	style?: object
 }> = ({ style = {} }) => (
@@ -128,11 +119,15 @@ const TopSection: FC<{
 		<Box sx={sx.contentContainer}>
 			<Box sx={sx.content}>
 				<Box sx={sx.textContainer}>
-					<Typography sx={sx.welcomeText}>Welcome</Typography>
-					<Typography sx={sx.nameText}>
-						{'I am '}
-						<Box component='span' sx={{ fontWeight: 500 }}>Greg</Box>
-					</Typography>
+					<motion.div {...welcomeTextAnimation}>
+						<Typography sx={sx.welcomeText}>Welcome</Typography>
+					</motion.div>
+					<motion.div {...nameTextAnimation}>
+						<Typography sx={sx.nameText}>
+							{'I am '}
+							<Box component='span' sx={{ fontWeight: 500 }}>Greg</Box>
+						</Typography>
+					</motion.div>
 				</Box>
 				<Box sx={sx.rightContainer} />
 			</Box>

@@ -2,7 +2,7 @@ import React, {
 	FC, useEffect, useRef, useState,
 } from 'react';
 import { Box } from '@mui/material';
-import { motion } from 'framer-motion';
+import { motion, AnimationProps  } from 'framer-motion';
 
 const sx = {
 	root: {
@@ -20,6 +20,12 @@ const sx = {
 		backgroundColor: '#aaaaaa',
 	},
 };
+
+const getAnimation = (isFullWidth: boolean): AnimationProps => ({
+	initial: { width: '300px' },
+	animate: { width: isFullWidth ? '100%' : '300px' },
+	transition: { duration: 0.3 },
+});
 
 const HeaderDivider: FC<{ style?: object }> = ({ style = {} }) => {
 	const ref = useRef<HTMLDivElement>();
@@ -39,7 +45,7 @@ const HeaderDivider: FC<{ style?: object }> = ({ style = {} }) => {
 
 	return (
 		<Box ref={ref} sx={{ ...sx.root, ...style }}>
-			<motion.div style={sx.divider} animate={{ width: isFullWidth ? '100%' : '300px' }} transition={{ duration: 0.3 }} />
+			<motion.div style={sx.divider} {...getAnimation(isFullWidth)} />
 		</Box>
 	);
 };
