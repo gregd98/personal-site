@@ -14,18 +14,20 @@ const sx = {
 		justifyContent: 'center',
 	},
 	divider: {
-		width: '300px',
 		height: '1px',
 		borderRadius: '1px',
 		backgroundColor: '#aaaaaa',
 	},
 };
 
-const getAnimation = (isFullWidth: boolean): AnimationProps => ({
-	initial: { width: '300px' },
-	animate: { width: isFullWidth ? '100%' : '300px' },
+const animation: AnimationProps = {
+	variants: {
+		short: { width: '300px' },
+		long: { width: '100%' },
+	},
+	initial: 'short',
 	transition: { duration: 0.3 },
-});
+};
 
 const HeaderDivider: FC<{ style?: object }> = ({ style = {} }) => {
 	const ref = useRef<HTMLDivElement>();
@@ -45,7 +47,11 @@ const HeaderDivider: FC<{ style?: object }> = ({ style = {} }) => {
 
 	return (
 		<Box ref={ref} sx={{ ...sx.root, ...style }}>
-			<motion.div style={sx.divider} {...getAnimation(isFullWidth)} />
+			<motion.div
+				{...animation}
+				animate={isFullWidth ? 'long' : 'short'}
+				style={sx.divider}
+			/>
 		</Box>
 	);
 };

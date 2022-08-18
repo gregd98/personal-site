@@ -102,15 +102,21 @@ const sx = {
 };
 
 const welcomeTextAnimation: AnimationProps = {
-	initial: { opacity: 0 },
-	animate: { opacity: 1 },
-	transition: { duration: 0.3, delay: 1.5 },
+	variants: {
+		hidden: { opacity: 0 },
+		show: { opacity: 1, transition: { duration: 0.3, delay: 1.5 } },
+	},
+	initial: 'hidden',
+	animate: 'show',
 };
 
 const nameTextAnimation: AnimationProps = {
-	initial: { opacity: 0 },
-	animate: { opacity: 1 },
-	transition: { duration: 0.3, delay: 2.5 },
+	variants: {
+		hidden: { opacity: 0 },
+		show: { opacity: 1, transition: { duration: 0.3, delay: 2.5 } },
+	},
+	initial: 'hidden',
+	animate: 'show',
 };
 
 const TopSection: FC<{
