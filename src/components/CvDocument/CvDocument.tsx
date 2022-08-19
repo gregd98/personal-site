@@ -8,8 +8,8 @@ import {
 } from './components';
 import { Variant } from './components/SvgIcon/SvgIcon';
 
-Font.register(generatePdfFont('lato', [300, 400, 700, 900]));
-Font.register(generatePdfFont('poppins', [300, 400, 500, 600, 700]));
+Font.register(generatePdfFont('lato', [300, 400, 700]));
+Font.register(generatePdfFont('poppins', '300-600'));
 
 const styles = StyleSheet.create({
 	page: {
