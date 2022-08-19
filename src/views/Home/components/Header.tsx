@@ -82,7 +82,6 @@ const Header: FC<{
 				<a href='/curriculum-vitae' target='_blank' rel='noreferrer noopener'>
 					<Box sx={sx.menuButton}>My CV</Box>
 				</a>
-				<Box sx={sx.menuButton}>Menu 2</Box>
 			</Box>
 		</Box>
 	);
