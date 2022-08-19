@@ -83,7 +83,6 @@ const cvData: CVData = {
 				{ name: 'MySQL' },
 				{ name: 'PostgreSQL' },
 				{ name: 'Python' },
-				{ name: 'Swagger' },
 			],
 		},
 		{
@@ -93,6 +92,10 @@ const cvData: CVData = {
 				{ name: 'REST api' },
 				{ name: 'Android Studio' },
 				{ name: 'WebStorm' },
+				{ name: 'Swagger' },
+				{ name: 'NGINX' },
+				{ name: 'PM2' },
+				{ name: 'Docker' },
 			],
 		},
 	],
