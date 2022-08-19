@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import {
-	Document, Page, Text, View, StyleSheet, Font,
+	Document, Page, View, StyleSheet, Font,
 } from '@react-pdf/renderer';
 import { generatePdfFont } from 'utils';
 import {
-	ContactBox, ExperienceBox, LanguageBox, SkillBox,
+	ContactBox, ExperienceBox, Header, LanguageBox, SkillBox,
 } from './components';
 import { Variant } from './components/SvgIcon/SvgIcon';
 
@@ -16,22 +16,6 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		paddingHorizontal: '30px',
 		paddingTop: '40px',
-	},
-	nameContainer: {
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-	},
-	nameText: {
-		fontFamily: 'lato',
-		fontWeight: 700,
-		fontSize: '36px',
-	},
-	roleText: {
-		fontFamily: 'lato',
-		fontWeight: 400,
-		fontSize: '16px',
-		marginTop: '8px',
 	},
 	content: {
 		display: 'flex',
@@ -88,10 +72,7 @@ export interface CVData {
 const CvDocument: FC<{ data: CVData }> = ({ data }) => (
 	<Document>
 		<Page size='A4' style={styles.page}>
-			<View style={styles.nameContainer}>
-				<Text style={styles.nameText}>{data.name}</Text>
-				<Text style={styles.roleText}>{data.role}</Text>
-			</View>
+			<Header name={data.name} role={data.role} />
 			<View style={styles.content}>
 				<View style={styles.leftContainer}>
 					<ExperienceBox data={data.experiences} />
