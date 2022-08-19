@@ -69,18 +69,18 @@ export interface CVData {
 	languages: ILanguageItem[]
 }
 
-const CvDocument: FC<{ data: CVData }> = ({ data }) => (
+const CvDocument: FC<{ data: CVData, color?: string }> = ({ data, color = '#428e92' }) => (
 	<Document>
 		<Page size='A4' style={styles.page}>
-			<Header name={data.name} role={data.role} />
+			<Header name={data.name} role={data.role} color={color} />
 			<View style={styles.content}>
 				<View style={styles.leftContainer}>
-					<ExperienceBox data={data.experiences} />
+					<ExperienceBox data={data.experiences} color={color} />
 					<SkillBox skillCategories={data.skillCategories} />
 				</View>
 				<View style={styles.rightContainer}>
-					<ContactBox data={data.contactInfo} />
-					<LanguageBox languages={data.languages} />
+					<ContactBox data={data.contactInfo} color={color} />
+					<LanguageBox languages={data.languages} color={color} />
 				</View>
 			</View>
 		</Page>

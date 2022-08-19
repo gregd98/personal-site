@@ -10,23 +10,21 @@ const styles = StyleSheet.create({
 		width: '16px',
 		height: '16px',
 		borderRadius: '50%',
-		border: '1px solid #008cff',
 		marginLeft: '2px',
-	},
-	circleActive: {
-		backgroundColor: '#008cff',
-		border: 'unset',
 	},
 });
 
-const renderCircle = (active: boolean) => (
-	<View style={{ ...styles.circle, ...(active && styles.circleActive) }} />
-);
+const renderCircle = (active: boolean, color: string) => {
+	const style = { ...styles.circle, ...(active ? { backgroundColor: color } : { border: `1px solid ${color}` }) };
+	return (
+		<View style={style} />
+	);
+};
 
-const ScoreIndicator: FC<{ score: number }> = ({ score }) => (
+const ScoreIndicator: FC<{ score: number, color: string }> = ({ score, color }) => (
 	<View style={styles.root}>
 		{[...Array(5).keys()].map((i) => (
-			<React.Fragment key={i}>{renderCircle(score >= i + 1)}</React.Fragment>
+			<React.Fragment key={i}>{renderCircle(score >= i + 1, color)}</React.Fragment>
 		))}
 	</View>
 );

@@ -18,10 +18,10 @@ const styles = StyleSheet.create({
 	},
 });
 
-const LanguageItem: FC<{ language: ILanguageItem }> = ({ language }) => (
+const LanguageItem: FC<{ language: ILanguageItem, color: string }> = ({ language, color }) => (
 	<View style={styles.root}>
 		<Text style={styles.name}>{language.name}</Text>
-		<ScoreIndicator score={language.score} />
+		<ScoreIndicator score={language.score} color={color} />
 	</View>
 );
 

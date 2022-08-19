@@ -10,9 +10,9 @@ const viewBoxMap: { [key in Variant]?: string } = {
 
 const ContactIcon: FC<{
 	variant: Variant,
-	color?: string,
+	color: string,
 	size?: number
-}> = ({ variant, color = '#008cff', size = 14 }) => (
+}> = ({ variant, color, size = 14 }) => (
 	// @ts-ignore
 	<Svg
 		width={size}

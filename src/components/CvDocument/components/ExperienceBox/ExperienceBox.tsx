@@ -4,11 +4,11 @@ import { IExperienceItem } from '../../CvDocument';
 import Title from '../Title';
 import ExperienceItem from './ExperienceItem';
 
-const ExperienceBox: FC<{ data: IExperienceItem[] }> = ({ data }) => (
+const ExperienceBox: FC<{ data: IExperienceItem[], color: string }> = ({ data, color }) => (
 	<View>
 		<Title title='Experience' />
 		{data.map((item, i) => (
-			<ExperienceItem key={i.toString()} data={item} />
+			<ExperienceItem key={i.toString()} data={item} color={color} />
 		))}
 	</View>
 );

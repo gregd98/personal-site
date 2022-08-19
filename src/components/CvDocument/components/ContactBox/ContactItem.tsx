@@ -25,9 +25,10 @@ const styles = StyleSheet.create({
 /* eslint-disable jsx-a11y/anchor-is-valid */
 const ContactItem: FC<{
 	data: IContactItem
-}> = ({ data }) => (
+	color: string
+}> = ({ data, color }) => (
 	<View style={styles.root}>
-		<SvgIcon variant={data.icon} size={16} />
+		<SvgIcon variant={data.icon} size={16} color={color} />
 		{data.url ? (
 			<Link src={data.url} style={styles.value}>{data.value}</Link>
 		) : (

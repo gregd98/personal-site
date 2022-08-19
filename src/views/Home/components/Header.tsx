@@ -79,7 +79,9 @@ const Header: FC<{
 				<Box sx={sx.divider} />
 			</motion.div>
 			<Box sx={sx.content}>
-				<Box sx={sx.menuButton}>Menu 1</Box>
+				<a href='/cv' target='_blank' rel='noreferrer noopener'>
+					<Box sx={sx.menuButton}>Résumé</Box>
+				</a>
 				<Box sx={sx.menuButton}>Menu 2</Box>
 			</Box>
 		</Box>

@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
 	},
 });
 
-const Header: FC<{ name: string, role: string }> = ({ name, role }) => (
+const Header: FC<{ name: string, role: string, color: string }> = ({ name, role, color }) => (
 	<View style={styles.root}>
 		<Text style={styles.name}>{name}</Text>
-		<Text style={styles.role}>{role}</Text>
+		<Text style={{ ...styles.role, color }}>{role}</Text>
 	</View>
 );
 
