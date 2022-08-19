@@ -26,7 +26,7 @@ const renderCircle = (active: boolean) => (
 const ScoreIndicator: FC<{ score: number }> = ({ score }) => (
 	<View style={styles.root}>
 		{[...Array(5).keys()].map((i) => (
-			<>{renderCircle(score >= i + 1)}</>
+			<React.Fragment key={i}>{renderCircle(score >= i + 1)}</React.Fragment>
 		))}
 	</View>
 );
