@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
 	},
 });
 
-const formatDate = (d: Date) => moment(d).format('MM/YYYY');
+const formatDate = (d: Date): string => moment(d).format('MM/YYYY');
 
-const formatInterval = ({ startingDate, endingDate }: IExperienceItem) => `${formatDate(startingDate)} - ${endingDate ? formatDate(endingDate) : 'present'}`;
+const formatInterval = ({ startingDate, endingDate }: IExperienceItem): string => `${formatDate(startingDate)} - ${endingDate ? formatDate(endingDate) : 'present'}`;
 
 const ExperienceItem: FC<{ data: IExperienceItem }> = ({ data }) => (
 	<View style={styles.root}>

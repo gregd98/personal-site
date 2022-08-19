@@ -14,7 +14,6 @@ const styles = StyleSheet.create({
 		fontSize: '10px',
 		marginLeft: '2px',
 		textDecoration: 'none',
-		fontWeight: 400,
 	},
 });
 
