@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { motion, AnimationProps } from 'framer-motion';
 import { px } from 'utils';
 
-const HEIGHT = 74;
+const HEIGHT = 64;
 
 const sx = {
 	root: {
