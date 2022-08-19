@@ -3,7 +3,9 @@ import {
 	Document, Page, Text, View, StyleSheet, Font,
 } from '@react-pdf/renderer';
 import { generatePdfFont } from 'utils';
-import { ContactBox, ExperienceBox, SkillBox } from './components';
+import {
+	ContactBox, ExperienceBox, LanguageBox, SkillBox,
+} from './components';
 import { Variant } from './components/SvgIcon/SvgIcon';
 
 Font.register(generatePdfFont('lato', [300, 400, 700, 900]));
@@ -69,12 +71,18 @@ export interface ISkillCategory {
 	skills: ISkillItem[]
 }
 
+export interface ILanguageItem {
+	name: string
+	score: number
+}
+
 export interface CVData {
 	name: string
 	role: string
 	contactInfo: IContactItem[]
 	experiences: IExperienceItem[]
 	skillCategories: ISkillCategory[]
+	languages: ILanguageItem[]
 }
 
 const CvDocument: FC<{ data: CVData }> = ({ data }) => (
@@ -91,6 +99,7 @@ const CvDocument: FC<{ data: CVData }> = ({ data }) => (
 				</View>
 				<View style={styles.rightContainer}>
 					<ContactBox data={data.contactInfo} />
+					<LanguageBox languages={data.languages} />
 				</View>
 			</View>
 		</Page>

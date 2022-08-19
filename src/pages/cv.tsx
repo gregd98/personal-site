@@ -33,6 +33,20 @@ const cvData: CVData = {
 			value: 'Cluj-Napoca',
 		},
 	],
+	languages: [
+		{
+			name: 'Hungarian',
+			score: 5,
+		},
+		{
+			name: 'English',
+			score: 4,
+		},
+		{
+			name: 'Romanian',
+			score: 2,
+		},
+	],
 	experiences: [
 		{
 			role: 'Front-End Developer',

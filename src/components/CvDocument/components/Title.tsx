@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from '@react-pdf/renderer';
+import { Style } from '@react-pdf/types';
 
 const styles = StyleSheet.create({
 	root: {
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
 	},
 });
 
-const Title: FC<{ title: string}> = ({ title }) => (
-	<View style={styles.root}>
+const Title: FC<{ title: string, style?: Style }> = ({ title, style = {} }) => (
+	<View style={{ ...styles.root, ...style }}>
 		<Text style={styles.title}>{title.toUpperCase()}</Text>
 		<View style={styles.divider} />
 	</View>

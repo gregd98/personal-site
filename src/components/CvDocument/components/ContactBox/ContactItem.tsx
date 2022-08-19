@@ -10,11 +10,11 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flexDirection: 'row',
 		alignItems: 'center',
-		height: '20px',
+		height: '26px',
 	},
 	value: {
 		fontFamily: 'poppins',
-		fontSize: '10px',
+		fontSize: '12px',
 		marginLeft: '4px',
 		textDecoration: 'none',
 		color: 'black',
@@ -27,7 +27,7 @@ const ContactItem: FC<{
 	data: IContactItem
 }> = ({ data }) => (
 	<View style={styles.root}>
-		<SvgIcon variant={data.icon} />
+		<SvgIcon variant={data.icon} size={16} />
 		{data.url ? (
 			<Link src={data.url} style={styles.value}>{data.value}</Link>
 		) : (
