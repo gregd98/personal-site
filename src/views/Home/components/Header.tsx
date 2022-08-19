@@ -79,8 +79,8 @@ const Header: FC<{
 				<Box sx={sx.divider} />
 			</motion.div>
 			<Box sx={sx.content}>
-				<a href='/cv' target='_blank' rel='noreferrer noopener'>
-					<Box sx={sx.menuButton}>Résumé</Box>
+				<a href='/curriculum-vitae' target='_blank' rel='noreferrer noopener'>
+					<Box sx={sx.menuButton}>My CV</Box>
 				</a>
 				<Box sx={sx.menuButton}>Menu 2</Box>
 			</Box>
