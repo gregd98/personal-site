@@ -1,5 +1,7 @@
+export type FontName = 'poppins' | 'lato' | 'raleway' | 'quicksand';
+
 interface IFontItem {
- name: string
+ name: FontName
  weights: number[] | string
  format: string
  extension: string

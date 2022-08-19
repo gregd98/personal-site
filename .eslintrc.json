@@ -66,6 +66,7 @@
     "no-unused-vars": 0,
     "no-restricted-globals": "off",
     "default-param-last": 0,
+    "default-case-last": 0,
     "react/forbid-prop-types": 0,
     "import/prefer-default-export": 0,
     "react/jsx-filename-extension": [2, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
@@ -79,6 +80,7 @@
     "react/jsx-indent-props": [2, "tab"],
     "react/jsx-props-no-spreading": [1, {"custom": "ignore"}],
     "react/prop-types": 1,
+    "react/no-array-index-key": 0,
     "react/require-default-props": 0,
     "react/function-component-definition": [0, {
       "namedComponenet": "function-expression"
