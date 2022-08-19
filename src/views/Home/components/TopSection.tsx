@@ -8,7 +8,7 @@ const sx = {
 	root: {
 		position: 'relative',
 		width: '100%',
-		height: '500px',
+		height: '100vh',
 	},
 	graph: {
 		position: 'absolute',
@@ -28,7 +28,6 @@ const sx = {
 	},
 	content: {
 		width: '100%',
-		pt: '60px',
 		maxWidth: '1200px',
 		height: '100%',
 		// backgroundColor: '#0000FF10',
@@ -86,7 +85,7 @@ const sx = {
 	},
 	rightContainer: {
 		width: '500px',
-		height: 'calc(100%)',
+		height: '300px',
 		// mt: '40px',
 		// backgroundColor: '#00000030',
 		border: '1px solid #00000030',
