@@ -3,10 +3,10 @@ import {
 	Document, Page, Text, View, StyleSheet, Font,
 } from '@react-pdf/renderer';
 import { generatePdfFont } from 'utils';
-import { ContactBox, ExperienceBox } from './components';
+import { ContactBox, ExperienceBox, SkillBox } from './components';
 import { Variant } from './components/SvgIcon/SvgIcon';
 
-Font.register(generatePdfFont('lato', [400, 700, 900]));
+Font.register(generatePdfFont('lato', [300, 400, 700, 900]));
 Font.register(generatePdfFont('poppins', [300, 400, 500, 600, 700]));
 
 const styles = StyleSheet.create({
@@ -37,11 +37,11 @@ const styles = StyleSheet.create({
 		marginTop: '40px',
 	},
 	leftContainer: {
-		flex: 2,
+		flex: 3,
 		marginRight: '40px',
 	},
 	rightContainer: {
-		flex: 1,
+		flex: 2,
 	},
 });
 
@@ -59,11 +59,22 @@ export interface IExperienceItem {
 	location?: string,
 }
 
+export interface ISkillItem {
+	name: string,
+	years?: number,
+}
+
+export interface ISkillCategory {
+	name: string,
+	skills: ISkillItem[]
+}
+
 export interface CVData {
 	name: string
 	role: string
 	contactInfo: IContactItem[]
 	experiences: IExperienceItem[]
+	skillCategories: ISkillCategory[]
 }
 
 const CvDocument: FC<{ data: CVData }> = ({ data }) => (
@@ -76,6 +87,7 @@ const CvDocument: FC<{ data: CVData }> = ({ data }) => (
 			<View style={styles.content}>
 				<View style={styles.leftContainer}>
 					<ExperienceBox data={data.experiences} />
+					<SkillBox skillCategories={data.skillCategories} />
 				</View>
 				<View style={styles.rightContainer}>
 					<ContactBox data={data.contactInfo} />

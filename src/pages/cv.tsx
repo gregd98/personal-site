@@ -12,7 +12,7 @@ const pdfViewerStyle: Style = {
 
 const cvData: CVData = {
 	name: 'Demény Gergely',
-	role: 'Front End Developer',
+	role: 'Front-End Developer',
 	contactInfo: [
 		{
 			icon: 'email',
@@ -35,7 +35,7 @@ const cvData: CVData = {
 	],
 	experiences: [
 		{
-			role: 'Front End Developer',
+			role: 'Front-End Developer',
 			company: 'Smartitory',
 			startingDate: new Date(2021, 1),
 			location: 'Cluj-Napoca',
@@ -46,6 +46,54 @@ const cvData: CVData = {
 			startingDate: new Date(2017, 9),
 			endingDate: new Date(2018, 9),
 			location: 'Sfântu Gheorghe',
+		},
+	],
+	skillCategories: [
+		{
+			name: 'Front-end technologies',
+			skills: [
+				{ name: 'React.js', years: 2 },
+				{ name: 'Next.js', years: 2 },
+				{ name: 'React Native', years: 1 },
+				{ name: 'Redux.js', years: 2 },
+				{ name: 'TypeScript', years: 2 },
+				{ name: 'JavaScript' },
+				{ name: 'Material UI (v5, v4)', years: 2 },
+				{ name: 'Formik' },
+				{ name: 'SSR' },
+				{ name: 'HTML5' },
+				{ name: 'CSS3' },
+				{ name: 'Framer Motion' },
+				{ name: 'canvas' },
+				{ name: 'Storybook' },
+				{ name: 'Recharts' },
+				{ name: 'Axios' },
+				{ name: 'Moment.js' },
+				{ name: 'ESLint' },
+			],
+		},
+		{
+			name: 'Back-end technologies',
+			skills: [
+				{ name: 'Node.js', years: 2 },
+				{ name: 'Nest.js', years: 1 },
+				{ name: 'Express.js', years: 1 },
+				{ name: 'TypeScript' },
+				{ name: 'TypeORM', years: 1 },
+				{ name: 'MySQL' },
+				{ name: 'PostgreSQL' },
+				{ name: 'Python' },
+				{ name: 'Swagger' },
+			],
+		},
+		{
+			name: 'Other',
+			skills: [
+				{ name: 'Git' },
+				{ name: 'REST api' },
+				{ name: 'Android Studio' },
+				{ name: 'WebStorm' },
+			],
 		},
 	],
 };
