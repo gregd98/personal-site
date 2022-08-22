@@ -1,13 +1,17 @@
 import { createTheme, Theme } from '@mui/material';
+import typography from './typography';
+import palettes from './palettes';
+import getComponents from './components';
 
-import typography from 'theme/typography';
-import palette from 'theme/palette';
-import components from 'theme/components';
-
-const theme: Theme = createTheme({
-	typography,
-	palette,
-	components,
+const themes: Theme[] = [...Array(palettes.length).keys()].map((i) => {
+	const currentPalette = palettes[i];
+	return createTheme({
+		typography,
+		palette: currentPalette,
+		components: getComponents(currentPalette.primary.main),
+	});
 });
 
-export default theme;
+const getTheme = (paletteIndex: number): Theme => themes[paletteIndex];
+
+export default getTheme;

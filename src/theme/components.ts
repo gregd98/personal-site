@@ -1,9 +1,12 @@
-import { generateFontFaces } from 'utils';
 import { Components } from '@mui/material';
 
-const components: Components = {
+const getComponents = (bodyBackground: string): Components => ({
 	MuiCssBaseline: {
-		styleOverrides: generateFontFaces(),
+		styleOverrides: `
+		body {
+		  background-color: ${bodyBackground};
+		}
+		`,
 	},
 	MuiTypography: {
 		styleOverrides: {
@@ -37,6 +40,6 @@ const components: Components = {
 			},
 		},
 	},
-};
+});
 
-export default components;
+export default getComponents;

@@ -15,3 +15,394 @@ a {
 * {
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 100;
+  src: local("poppins"), url(/fonts/poppins/100.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 200;
+  src: local("poppins"), url(/fonts/poppins/200.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 300;
+  src: local("poppins"), url(/fonts/poppins/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 400;
+  src: local("poppins"), url(/fonts/poppins/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 500;
+  src: local("poppins"), url(/fonts/poppins/500.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 600;
+  src: local("poppins"), url(/fonts/poppins/600.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 700;
+  src: local("poppins"), url(/fonts/poppins/700.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 800;
+  src: local("poppins"), url(/fonts/poppins/800.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 900;
+  src: local("poppins"), url(/fonts/poppins/900.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 100;
+  src: local("lato"), url(/fonts/lato/100.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 300;
+  src: local("lato"), url(/fonts/lato/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 400;
+  src: local("lato"), url(/fonts/lato/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 700;
+  src: local("lato"), url(/fonts/lato/700.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 900;
+  src: local("lato"), url(/fonts/lato/900.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 100;
+  src: local("raleway"), url(/fonts/raleway/100.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 200;
+  src: local("raleway"), url(/fonts/raleway/200.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 300;
+  src: local("raleway"), url(/fonts/raleway/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 400;
+  src: local("raleway"), url(/fonts/raleway/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 500;
+  src: local("raleway"), url(/fonts/raleway/500.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 600;
+  src: local("raleway"), url(/fonts/raleway/600.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 700;
+  src: local("raleway"), url(/fonts/raleway/700.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 800;
+  src: local("raleway"), url(/fonts/raleway/800.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 900;
+  src: local("raleway"), url(/fonts/raleway/900.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 300;
+  src: local("quicksand"), url(/fonts/quicksand/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 400;
+  src: local("quicksand"), url(/fonts/quicksand/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 500;
+  src: local("quicksand"), url(/fonts/quicksand/500.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 600;
+  src: local("quicksand"), url(/fonts/quicksand/600.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 700;
+  src: local("quicksand"), url(/fonts/quicksand/700.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 100;
+  src: local("poppins"), url(/fonts/poppins/100.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 200;
+  src: local("poppins"), url(/fonts/poppins/200.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 300;
+  src: local("poppins"), url(/fonts/poppins/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 400;
+  src: local("poppins"), url(/fonts/poppins/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 500;
+  src: local("poppins"), url(/fonts/poppins/500.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 600;
+  src: local("poppins"), url(/fonts/poppins/600.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 700;
+  src: local("poppins"), url(/fonts/poppins/700.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 800;
+  src: local("poppins"), url(/fonts/poppins/800.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "poppins";
+  font-weight: 900;
+  src: local("poppins"), url(/fonts/poppins/900.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 100;
+  src: local("lato"), url(/fonts/lato/100.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 300;
+  src: local("lato"), url(/fonts/lato/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 400;
+  src: local("lato"), url(/fonts/lato/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 700;
+  src: local("lato"), url(/fonts/lato/700.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "lato";
+  font-weight: 900;
+  src: local("lato"), url(/fonts/lato/900.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 100;
+  src: local("raleway"), url(/fonts/raleway/100.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 200;
+  src: local("raleway"), url(/fonts/raleway/200.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 300;
+  src: local("raleway"), url(/fonts/raleway/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 400;
+  src: local("raleway"), url(/fonts/raleway/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 500;
+  src: local("raleway"), url(/fonts/raleway/500.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 600;
+  src: local("raleway"), url(/fonts/raleway/600.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 700;
+  src: local("raleway"), url(/fonts/raleway/700.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 800;
+  src: local("raleway"), url(/fonts/raleway/800.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "raleway";
+  font-weight: 900;
+  src: local("raleway"), url(/fonts/raleway/900.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 300;
+  src: local("quicksand"), url(/fonts/quicksand/300.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 400;
+  src: local("quicksand"), url(/fonts/quicksand/400.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 500;
+  src: local("quicksand"), url(/fonts/quicksand/500.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 600;
+  src: local("quicksand"), url(/fonts/quicksand/600.ttf) format("truetype");
+}
+
+
+@font-face {
+  font-family: "quicksand";
+  font-weight: 700;
+  src: local("quicksand"), url(/fonts/quicksand/700.ttf) format("truetype");
+}
+

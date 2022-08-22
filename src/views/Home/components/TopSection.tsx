@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
-import { Box, Typography } from '@mui/material';
 import { motion, AnimationProps } from 'framer-motion';
+import {
+	Box, Theme, Typography, useTheme,
+} from '@mui/material';
 import { Graph } from 'components';
 import { bp } from 'utils';
 
@@ -17,6 +19,7 @@ const sx = {
 		width: '100%',
 		height: '100%',
 		zIndex: 0,
+		opacity: 0.5,
 		// backgroundColor: '#FF000020',
 	},
 	contentContainer: {
@@ -50,9 +53,9 @@ const sx = {
 		fontSize: '64px',
 		lineHeight: '70px',
 		fontFamily: 'raleway',
-		color: 'black',
 		fontWeight: 300,
-		backgroundColor: '#FFFFFF40',
+		// backgroundColor: '#FFFFFF40',
+		color: 'text.primary',
 		maxWidth: '290px',
 		borderRadius: '20px',
 		transition: 'all .3s',
@@ -72,10 +75,9 @@ const sx = {
 		pointerEvents: 'none',
 		fontSize: '80px',
 		lineHeight: '110px',
-		color: 'black',
 		fontFamily: 'quicksand',
 		fontWeight: 300,
-		backgroundColor: '#FFFFFF40',
+		color: 'text.primary',
 		transition: 'all .3s',
 		[bp(860)]: {
 			fontSize: '52px',
@@ -86,8 +88,6 @@ const sx = {
 	rightContainer: {
 		width: '500px',
 		height: '300px',
-		// mt: '40px',
-		// backgroundColor: '#00000030',
 		border: '1px solid #00000030',
 		borderRadius: '40px',
 		transition: 'width .3s',
@@ -120,26 +120,29 @@ const nameTextAnimation: AnimationProps = {
 
 const TopSection: FC<{
 	style?: object
-}> = ({ style = {} }) => (
-	<Box sx={{ ...sx.root, ...style }}>
-		<Graph style={sx.graph} color='#cccccc' radius={1} />
-		<Box sx={sx.contentContainer}>
-			<Box sx={sx.content}>
-				<Box sx={sx.textContainer}>
-					<motion.div {...welcomeTextAnimation}>
-						<Typography sx={sx.welcomeText}>Welcome</Typography>
-					</motion.div>
-					<motion.div {...nameTextAnimation}>
-						<Typography sx={sx.nameText}>
-							{'I am '}
-							<Box component='span' sx={{ fontWeight: 500 }}>Greg</Box>
-						</Typography>
-					</motion.div>
+}> = ({ style = {} }) => {
+	const { palette }: Theme = useTheme();
+	return (
+		<Box sx={{ ...sx.root, ...style }}>
+			<Graph style={sx.graph} color={palette.text.primary} radius={1} />
+			<Box sx={sx.contentContainer}>
+				<Box sx={sx.content}>
+					<Box sx={sx.textContainer}>
+						<motion.div {...welcomeTextAnimation}>
+							<Typography sx={sx.welcomeText}>Welcome</Typography>
+						</motion.div>
+						<motion.div {...nameTextAnimation}>
+							<Typography sx={sx.nameText}>
+								{'I am '}
+								<Box component='span' sx={{ fontWeight: 500 }}>Greg</Box>
+							</Typography>
+						</motion.div>
+					</Box>
+					<Box sx={sx.rightContainer} />
 				</Box>
-				<Box sx={sx.rightContainer} />
 			</Box>
 		</Box>
-	</Box>
-);
+	);
+};
 
 export default TopSection;
