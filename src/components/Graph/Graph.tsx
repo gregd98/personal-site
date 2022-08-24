@@ -11,6 +11,7 @@ const sx = {
 	root: {
 		width: '100%',
 		height: '100vh',
+		cursor: 'none',
 		'& canvas': {
 			width: '100%',
 			height: '100%',
@@ -70,13 +71,16 @@ const createNode = (width: number, height: number, radius: number, fromSide = tr
 	};
 };
 
-const calculateDistance = (x1: number, x2: number, y1: number, y2: number): number => Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
+const calculateDistance = (x1: number, x2: number, y1: number, y2: number): number =>
+	Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2);
 
 const calculateDistances = (nodes: INode[], count: number): number[] => {
 	const res = [];
 	for (let i = 0; i < count; i += 1) {
 		for (let j = 0; j < count; j += 1) {
-			res.push(i === j ? 0 : calculateDistance(nodes[i].x, nodes[j].x, nodes[i].y, nodes[j].y));
+			res.push(i === j
+				? 0
+				: calculateDistance(nodes[i].x, nodes[j].x, nodes[i].y, nodes[j].y));
 		}
 	}
 	return res;
@@ -92,7 +96,9 @@ const getLineWidthByDistance = (dist: number, threshold: number): number => {
 const getCount = (rootRef: any, density: number, minimumDensity: number) => {
 	if (rootRef.current) {
 		const dpi = window.devicePixelRatio;
-		return Math.max(Math.floor((rootRef.current.clientWidth * rootRef.current.clientHeight * density) / (2073600 / dpi)), minimumDensity);
+		return Math.max(Math.floor(
+			(rootRef.current.clientWidth * rootRef.current.clientHeight * density)
+			/ (2073600 / dpi)), minimumDensity);
 	}
 	return minimumDensity;
 };
@@ -103,6 +109,7 @@ const Graph: FC<{
 	color?: string
 	style?: object
 	radius?: number
+	cursorRadius?: number
 	lineWidth?: number
 	density?: number
 	minimumDensity?: number
@@ -113,6 +120,7 @@ const Graph: FC<{
 }> = ({
 	color = '#000000',
 	radius = 2,
+	cursorRadius = 0,
 	lineWidth = 0.5,
 	density = 70,
 	minimumDensity = 10,
@@ -145,7 +153,10 @@ const Graph: FC<{
 			const rect = rootRef.current.getBoundingClientRect();
 			const { top, left } = rect;
 			const dpi = window.devicePixelRatio;
-			cursorPos = { x: (x - left - window.scrollX) * dpi, y: (y - top - window.scrollY) * dpi };
+			cursorPos = {
+				x: (x - left - window.scrollX) * dpi,
+				y: (y - top - window.scrollY) * dpi,
+			};
 			// cursorPos = pos;
 			// outerCursorPos = pos;
 			// cursorPos = pos;
@@ -178,7 +189,10 @@ const Graph: FC<{
 				x: node.x + Math.cos(node.dir) * node.speed,
 				y: node.y + Math.sin(node.dir) * node.speed,
 			};
-			if (newNode.x < -currentRadius || newNode.y < -currentRadius || newNode.x >= ctx.canvas.width + currentRadius || newNode.y >= ctx.canvas.height + currentRadius) {
+			if (newNode.x < -currentRadius
+				|| newNode.y < -currentRadius
+				|| newNode.x >= ctx.canvas.width + currentRadius
+				|| newNode.y >= ctx.canvas.height + currentRadius) {
 				nodes[i] = createNode(ctx.canvas.width, ctx.canvas.height, currentRadius);
 			} else {
 				nodes[i] = newNode;
@@ -198,8 +212,9 @@ const Graph: FC<{
 		}
 
 		if (cursorPos) {
+			const rad = cursorRadius ? cursorRadius * dpi : currentRadius;
 			ctx.beginPath();
-			ctx.arc(cursorPos.x, cursorPos.y, currentRadius, 0, Math.PI * 2, true);
+			ctx.arc(cursorPos.x, cursorPos.y, rad, 0, Math.PI * 2, true);
 			ctx.fill();
 		}
 
@@ -209,7 +224,10 @@ const Graph: FC<{
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);
 					if (dynamicLineWidth) {
-						ctx.lineWidth = getLineWidthByDistance(distances[i * count + j], threshold * dpi);
+						ctx.lineWidth = getLineWidthByDistance(
+							distances[i * count + j],
+							threshold * dpi,
+						);
 					} else {
 						ctx.lineWidth = lineWidth * dpi;
 					}
@@ -218,7 +236,12 @@ const Graph: FC<{
 				}
 			}
 			if (cursorPos) {
-				const mouseDist = calculateDistance(nodes[i].x, cursorPos.x, nodes[i].y, cursorPos.y);
+				const mouseDist = calculateDistance(
+					nodes[i].x,
+					cursorPos.x,
+					nodes[i].y,
+					cursorPos.y,
+				);
 				if (mouseDist <= threshold * dpi) {
 					ctx.beginPath();
 					ctx.moveTo(nodes[i].x, nodes[i].y);

@@ -1,19 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC, useRef } from 'react';
 import { Box } from '@mui/material';
 import { useAppDispatch } from 'store/store';
 import { changePalette } from 'store/ui/actions';
-import { Header, TopSection } from './components';
+import { bp } from 'utils/utils';
+import { Header, TopSection, SecondSection } from './components';
 
 const sx = {
 	root: {
 		px: '30px',
-		transition: 'background-color .3s',
+		transition: 'all .3s',
 		backgroundColor: 'primary.main',
+		[bp(760)]: {
+			px: '8px',
+		},
 	},
 };
 
 const Home: FC = () => {
 	const dispatch = useAppDispatch();
+	const topSectionRef = useRef<HTMLDivElement>();
+
 	return (
 		<Box
 			sx={sx.root}
@@ -21,9 +27,9 @@ const Home: FC = () => {
 				dispatch(changePalette());
 			}}
 		>
-			<Header openThreshold={60} style={{ zIndex: 2 }} />
-			<TopSection style={{ zIndex: 1 }} />
-			<Box sx={{ height: '1500px' }} />
+			<Header openThreshold={60} style={{ zIndex: 3 }} />
+			<TopSection ref={topSectionRef} style={{ zIndex: 1 }} />
+			<SecondSection topSectionRef={topSectionRef} style={{ zIndex: 2 }} />
 		</Box>
 	);
 };

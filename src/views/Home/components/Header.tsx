@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { motion, AnimationProps } from 'framer-motion';
 import { Box, Theme, useTheme } from '@mui/material';
-import { px } from 'utils';
+import { bp, px } from 'utils';
 import { useAppDispatch } from 'store/store';
 import { changePalette } from 'store/ui/actions';
 
@@ -13,6 +13,11 @@ const sx = {
 		top: 0,
 		width: 'calc(100% - 60px)',
 		height: px(HEIGHT),
+		pointerEvents: 'none',
+		transition: 'all .3s',
+		[bp(760)]: {
+			width: 'calc(100% - 16px)',
+		},
 	},
 	content: {
 		height: '100%',
@@ -30,6 +35,7 @@ const sx = {
 		userSelect: 'none',
 		transition: 'color .3s',
 		color: 'text.primary',
+		pointerEvents: 'auto',
 	},
 	dividerContainer: {
 		position: 'absolute' as const,
@@ -55,7 +61,7 @@ const dividerAnimation: AnimationProps = {
 		show: { top: 0 },
 	},
 	initial: 'hidden',
-	transition: { duration: 0.4 },
+	transition: { duration: 0.3 },
 };
 
 const Header: FC<{

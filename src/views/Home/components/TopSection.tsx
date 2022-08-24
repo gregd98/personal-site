@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, forwardRef } from 'react';
 import { motion, AnimationProps } from 'framer-motion';
 import {
 	Box, Theme, Typography, useTheme,
@@ -118,13 +118,16 @@ const nameTextAnimation: AnimationProps = {
 	animate: 'show',
 };
 
-const TopSection: FC<{
+interface IProps {
+	ref?: any
 	style?: object
-}> = ({ style = {} }) => {
+}
+
+const TopSection: FC<IProps> = forwardRef<HTMLDivElement, IProps>(({ style = {} }, ref) => {
 	const { palette }: Theme = useTheme();
 	return (
-		<Box sx={{ ...sx.root, ...style }}>
-			<Graph style={sx.graph} color={palette.text.primary} radius={1} />
+		<Box ref={ref} sx={{ ...sx.root, ...style }}>
+			<Graph style={sx.graph} color={palette.text.primary} radius={1} cursorRadius={4} />
 			<Box sx={sx.contentContainer}>
 				<Box sx={sx.content}>
 					<Box sx={sx.textContainer}>
@@ -143,6 +146,8 @@ const TopSection: FC<{
 			</Box>
 		</Box>
 	);
-};
+});
+
+TopSection.displayName = 'TopSection';
 
 export default TopSection;
