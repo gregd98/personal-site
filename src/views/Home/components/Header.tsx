@@ -3,7 +3,7 @@ import { motion, AnimationProps } from 'framer-motion';
 import { Box, Theme, useTheme } from '@mui/material';
 import { bp, px } from 'utils';
 import { useAppDispatch } from 'store/store';
-import { changePalette } from 'store/ui/actions';
+import { changePalette } from 'store/ui';
 
 const HEIGHT = 64;
 

@@ -2,7 +2,8 @@ import { FontName, fonts as themeFonts } from 'theme/fonts';
 import { BulkLoad } from '@react-pdf/types';
 
 export const px = (v: number | string): string => `${v}px`;
-export const bp = (v: number | string): string => `@media (max-width: ${px(v)})`;
+export const mq = (v: number | string): string => `(max-width: ${px(v)})`;
+export const bp = (v: number | string): string => `@media ${mq(v)}`;
 
 const getParsedFontWeights = (weights: number[] | string): number[] => {
 	if (Array.isArray(weights)) {
@@ -18,24 +19,25 @@ const getParsedFontWeights = (weights: number[] | string): number[] => {
 	return result;
 };
 
-export const generateFontFaces = (): string => {
-	const r: string[] = [];
-	themeFonts.forEach(({
-		name, weights, format, extension,
-	}) => {
-		const w = getParsedFontWeights(weights);
-		w.forEach((weight) => {
-			r.push(`
-			@font-face {
-				font-family: "${name}";
-				font-weight: ${weight};
-				src: local("${name}"), url(/fonts/${name}/${weight}${extension}) format("${format}");
-			}
-			`);
-		});
-	});
-	return r.join('\n');
-};
+/* eslint-disable max-len */
+// export const generateFontFaces = (): string => {
+// 	const r: string[] = [];
+// 	themeFonts.forEach(({
+// 		name, weights, format, extension,
+// 	}) => {
+// 		const w = getParsedFontWeights(weights);
+// 		w.forEach((weight) => {
+// 			r.push(`
+// 			@font-face {
+// 				font-family: "${name}";
+// 				font-weight: ${weight};
+// 				src: local("${name}"), url(/fonts/${name}/${weight}${extension}) format("${format}");
+// 			}
+// 			`);
+// 		});
+// 	});
+// 	return r.join('\n');
+// };
 
 export const generatePdfFont = (name: FontName, weights: number[] | string): BulkLoad => {
 	const f = themeFonts.find((font) => font.name === name);

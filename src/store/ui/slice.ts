@@ -4,10 +4,12 @@ import type { AppState } from 'store/store';
 
 export interface UiState {
 	paletteIndex: number,
+	homePaddingX: number,
 }
 
 const initialState: UiState = {
 	paletteIndex: 0,
+	homePaddingX: 30,
 };
 
 export const uiSlice = createSlice({
@@ -16,6 +18,9 @@ export const uiSlice = createSlice({
 	reducers: {
 		setPaletteIndex: (state, action: PayloadAction<number>) => {
 			state.paletteIndex = action.payload;
+		},
+		setHomePaddingX: (state, action: PayloadAction<number>) => {
+			state.homePaddingX = action.payload;
 		},
 	},
 	extraReducers: {
@@ -26,6 +31,7 @@ export const uiSlice = createSlice({
 	},
 });
 
-export const { setPaletteIndex } = uiSlice.actions;
+export const { setPaletteIndex, setHomePaddingX } = uiSlice.actions;
 
 export const selectPaletteIndex = (state: AppState) => state.ui.paletteIndex;
+export const selectCurrentPaddingX = (state: AppState) => state.ui.homePaddingX;

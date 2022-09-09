@@ -1,28 +1,31 @@
-import React, { FC, useRef } from 'react';
-import { Box } from '@mui/material';
+import React, { FC, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { Box, useMediaQuery } from '@mui/material';
 import { useAppDispatch } from 'store/store';
-import { changePalette } from 'store/ui/actions';
-import { bp } from 'utils/utils';
+import { selectCurrentPaddingX, setHomePaddingX, changePalette } from 'store/ui';
+import { mq, px } from 'utils/utils';
 import { Header, TopSection, SecondSection } from './components';
 
 const sx = {
 	root: {
-		px: '30px',
 		transition: 'all .3s',
 		backgroundColor: 'primary.main',
-		[bp(760)]: {
-			px: '8px',
-		},
 	},
 };
 
 const Home: FC = () => {
 	const dispatch = useAppDispatch();
 	const topSectionRef = useRef<HTMLDivElement>();
+	const isSmallMargin = useMediaQuery(mq(760));
+	const paddingX = useSelector(selectCurrentPaddingX);
+
+	useEffect(() => {
+		dispatch(setHomePaddingX(isSmallMargin ? 8 : 30));
+	}, [dispatch, isSmallMargin]);
 
 	return (
 		<Box
-			sx={sx.root}
+			sx={{ ...sx.root, px: px(paddingX) }}
 			onClick={() => {
 				dispatch(changePalette());
 			}}
