@@ -4,6 +4,7 @@ const getComponents = (bodyBackground: string): Components => ({
 	MuiCssBaseline: {
 		styleOverrides: `
 		body {
+				transition: background-color .3s;
 		  background-color: ${bodyBackground};
 		}
 		`,
